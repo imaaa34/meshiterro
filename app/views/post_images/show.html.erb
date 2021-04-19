@@ -65,7 +65,7 @@
           <div class="new-comment">
             <p>コメントする</p>
             <%= form_with(model:[@post_image,@post_comment], local:true) do |f| %>
-              <%= f.text_area :comment, rows:'5', placeholder: "コメントをここに" %>
+              <%= f.text_area :caption, class:"form-control", rows:"3", placeholder:"コメントここに" %>
               <%= f.submit "送信する", class:"btn btn-lg btn-info mt-4" %>
             <% end %>
           </div>
