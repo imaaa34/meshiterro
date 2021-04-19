@@ -37,22 +37,28 @@
 
 
       <ul class="list-group list-group-flush">
-        <li class="list-group-item">
+        <li class="list-group-item border-top">
           <h4><%= @post_image.post_comments.count %>件コメント</h4>
-          <div class="row">
-            <div class="col-2">
-              <%= attachment_image_tag @post_image.user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg", class:"mt-3 rounded-circle"; %>
-            </div>
-            <div class="col-10">
-              <%= @post_comment.user.name %>
-              <%= @post_comment.created_at.strftime('%Y/%m/%d') %><%= @post_comment.comment %>
-              <% if @post_image.user == current_user %>
-                <%= link_to "削除", post_image_path(@post_image), method: :delete, class:"btn btn-danger btn-sm btn-info mt-4" %>
+            <div class="row border">
+              <% @post_image.post_comments.each do |post_comment| %>
+              <div class="col-4">
+                <%= attachment_image_tag @post_image.user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg", class:"mt-3 rounded-circle"; %>
+              </div>
+              <div class="col-8">
+                <div>
+                  <%= post_comment.created_at.strftime('%Y/%m/%d') %> ｜
+                  <%= post_comment.user.name %>
+                </div>
+                <div>
+                  <%= post_comment.comment %>
+                </div>
+                <% if post_comment.user == current_user %>
+                  <div class="comment-delete">
+                  <%= link_to "削除", post_image_post_comment_path(post_comment.post_image, post_comment), method: :delete, class:"btn btn-danger btn-sm btn-info mt-4" %>
+                  </div>
+                <% end %>
+              </div>
               <% end %>
-            </div>
-
-
-
         </li>
 
         <li class="list-group-item">
@@ -60,7 +66,7 @@
             <p>コメントする</p>
             <%= form_with(model:[@post_image,@post_comment], local:true) do |f| %>
               <%= f.text_area :comment, rows:'5', placeholder: "コメントをここに" %>
-                <%= f.submit "送信する", class:"btn btn-lg btn-block btn-info mt-4" %>
+              <%= f.submit "送信する", class:"btn btn-lg btn-info mt-4" %>
             <% end %>
           </div>
         </li>
