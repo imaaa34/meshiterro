@@ -1,7 +1,7 @@
 <div class="containar">
   <div class="row no-gutters">
     <div class="col-md-5 col-sm-10 mx-2 mx-sm-auto shadow-lg rounded px-0 my-5">
-      <h5 class="text-dark bg-light p-4 mb-0">Sign up</h5>
+      <h5 class="text-dark bg-light p-4 mb-0 text-center">Sign up</h5>
       <div class="form-body p-4">
         <% if @user.errors.any? %>
           <%= @user.errors.count %>件のエラーが発生しました
@@ -10,39 +10,46 @@
           <% end %>
         <% end %>
 
-        <div class="input-group mb-3 mt-4">
-            <%= form_with model:@user, url: user_registration_path, id: 'new_user', class: 'new_user', local:true do |f| %>
+        <div class="text-center">
+          <p>メールアドレスと<br>パスワードを入力してください</p>
+        </div>
+        <%= form_with model: @user, url: user_registration_path, id: 'new_user', class: 'new_user', local:true do |f| %>
+        <div class="input-group mb-3 justify-content-center">
             <%= render "devise/shared/error_messages", resource: resource %>
-
-          <div class="field">
-            <%= f.label :name %><br />
-            <%= f.text_field :name, autofocus: true %>
+          <div class="input-group-prepend">
+            <span class="input-group-text" aria-hidden="true"><i class="fas fa-user"></i></span>
           </div>
+          <%= f.text_field :name, autofocus: true, class:"form-control", placeholder:"名前" %>
+        </div>
 
-          <div class="field">
-            <%= f.label :email %><br />
-            <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        <div class="input-group mb-3 justify-content-center">
+          <div class="input-group-prepend">
+            <span class="input-group-text" aria-hidden="true"><i class="fas fa-envelope"></i></span>
           </div>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control", placeholder:"メールアドレス" %>
+        </div>
 
-          <div class="field">
-            <%= f.label :password %>
-            <% if @minimum_password_length %>
-            <em>(<%= @minimum_password_length %> characters minimum)</em>
-            <% end %><br />
-            <%= f.password_field :password, autocomplete: "new-password" %>
+        <div class="input-group mb-3 justify-content-center">
+          <div class="input-group-prepend">
+            <span class="input-group-text" aria-hidden="true"><i class="fas fa-lock"></i></span>
           </div>
+          <%= f.password_field :password, autocomplete: "new-password", class:"form-control", placeholder:"パスワード" %>
+        </div>
 
-          <div class="field">
-            <%= f.label :password_confirmation %><br />
-            <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+        <div class="input-group mb-3 justify-content-center">
+          <div class="input-group-prepend">
+            <span class="input-group-text" aria-hidden="true"><i class="fas fa-check-circle"></i></span>
           </div>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"form-control", placeholder:"パスワード確認" %>
+        </div>
 
           <div class="actions">
-            <%= f.submit "Sign up", class:"btn btn-lg btn-block btn-info mt-4" %>
+            <%= f.submit "Sign up", class:"btn btn-lg btn-block btn-info my-3" %>
           </div>
+
         <% end %>
+        <div class="text-center"><%= render "devise/shared/links" %></div>
         </div>
-        <%= render "devise/shared/links" %>
       </div>
     </div>
   </div>
