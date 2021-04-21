@@ -34,12 +34,7 @@
           </span>
         </div>
       </div>
-
-
       <hr>
-
-
-
         <h4><%= @post_image.post_comments.count %>件コメント</h4>
           <% @post_image.post_comments.each do |post_comment| %>
             <hr>
@@ -63,13 +58,7 @@
               </div>
             </div>
           <% end %>
-
-
               <hr>
-
-
-
-
             <p>コメントする</p>
             <%= form_with(model:[@post_image,@post_comment], local:true) do |f| %>
               <%= f.text_area :caption, class:"form-control", rows:"3", placeholder:"コメントここに" %>
